@@ -55,7 +55,19 @@ RC_GTEST_PROP(SwapTests,
     /*
      * Swap two values in an array. See that they swapped and the others did not
      */
+    RC_PRE(values.size() >= static_cast<size_t>(2));
 
-    (void)values;
+    int* arr = new int[values.size()];
+    copy_vector_to_array(values,arr);
+    int first = arr[0];
+    int last = arr[values.size()-1];
+    swap(&arr[0], &arr[values.size()-1]);
+    RC_ASSERT(arr[0] == last);
+    RC_ASSERT(arr[values.size()-1] == first);
+    for (size_t i = 1; i+1 < values.size(); ++i)
+    {
+        RC_ASSERT(arr[i] == values[i]);
+    }
+    delete[] arr;
 
 }
