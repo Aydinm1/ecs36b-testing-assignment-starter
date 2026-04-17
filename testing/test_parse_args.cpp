@@ -30,12 +30,38 @@ TEST(ParseArgsTests, SimpleCheckArgumentsParsedSuccessfully) {
      * (ar_out and len_out are set to the right values).
      * Don't forget to free any memory that was dynamically allocated as part of your test.'
      */
+    char program[] = "program";
+    char arg1[] = "10";
+    char arg2[] = "-3";
+    char arg3[] = "25";
+    char* argv[] = {program, arg1, arg2,arg3};
+    int* ar_out= nullptr;
+    int len_out = 0;
+    parse_args(4, argv,&ar_out, &len_out);
+
+    ASSERT_EQ(len_out, 3);
+    ASSERT_NE(ar_out, nullptr);
+    EXPECT_EQ(ar_out[0], 10);
+    EXPECT_EQ(ar_out[1], -3);
+    EXPECT_EQ(ar_out[2], 25);
+    free(ar_out);
+
 }
 
 TEST(ParseArgsTests, SimpleCheckParseNoArgs) {
     /*
      * Check that you parse you can successfully parse "no" command line arguments.
      */
+    char program[] = "program";
+    char* argv[] = {program};
+    int* ar_out= nullptr;
+    int len_out = -1;
+    parse_args(1, argv, &ar_out, &len_out);
+
+    ASSERT_EQ(len_out, 0);
+    ASSERT_EQ(ar_out, nullptr);
+    free(ar_out);
+
 }
 
 
