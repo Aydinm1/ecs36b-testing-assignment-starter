@@ -46,29 +46,36 @@ int temp = *a;
 ```
 
 ### Bug 2
-
+Copy Array implementation is not correct
 ### Location
 
 Line number(s) of the bugs.
-
+Sorting.cpp Line 34
 ```c++
 Copy of the buggy code
+int* copy = ar;
 ```
 
 ### How the bug was located
 
 Explain how you found the bug
-
+I wrote the test for SimpleValuesAreSame and the warning that len wasn't being used was my first inclination. 
 ### Description
 
 Describe the bug
-
+This code creates a pointer to the same array, it does not create a new array. I'm sure the SimpleCopyWasMade would've exposed this but I completed my implementation after the first test failed. 
 ### Fix
 
 Explain how you fixed the bug
-
+To properly copy an array, you need to allocate memory using malloc of ints with length of len integers, then iterate through each element and copy the element to the new copied array, then return the new array. 
 ```c++
 Copy of the fixed code
+  int* copy = (int*)malloc(sizeof(int) * len);
+  for (int i = 0; i < len; i++)
+  {
+    copy[i] = ar[i];
+  }
+  return copy;
 ```
 
 ### Bug 3
