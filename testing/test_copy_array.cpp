@@ -79,9 +79,10 @@ RC_GTEST_PROP(CopyArrayTests,
     int* arr = new int[values.size()];
     copy_vector_to_array(values, arr);
     int* copied_arr = copy_array(arr,values.size());
-    EXPECT_TRUE(elements_in_vector_and_array_are_same(values, arr));
+    bool same = (elements_in_vector_and_array_are_same(values, arr));
     free(copied_arr);
     delete[] arr;
+    RC_ASSERT(same);
 
 }
 
@@ -97,9 +98,10 @@ RC_GTEST_PROP(CopyArrayTests,
     int* arr = new int[values.size()];
     copy_vector_to_array(values, arr);
     int* copied_arr = copy_array(arr,values.size());
-    EXPECT_TRUE(arr != copied_arr);
+    bool copy_made = (arr != copied_arr);
     free(copied_arr);
     delete[] arr;
+    RC_ASSERT(copy_made);
 
 }
 

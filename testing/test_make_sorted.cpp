@@ -72,5 +72,18 @@ RC_GTEST_PROP(MakeSortedTests,
     /* Test that after sorting an array, the values are in ascending order
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
-    (void)values;
+    RC_PRE(!values.empty());
+    int* arr = new int[values.size()];
+    copy_vector_to_array(values,arr);
+    make_sorted(arr,values.size());
+    bool sorted = true;
+    for (size_t i = 0; i < values.size()-1; ++i)
+    {
+         if(arr[i] > arr[i+1])
+         {
+             sorted = false;
+         }
+    }
+    delete[] arr;
+    RC_ASSERT(sorted);
 }

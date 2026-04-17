@@ -14,7 +14,7 @@ TEST(GetSortedTests, SimpleSortSortedArray) {
     for (int i = 0; i < 5; ++i)
     {
         const int checkAnswer[] = {1,2,3,4,5};
-        ASSERT_EQ(checkAnswer[i], sortedarr[i]);
+        EXPECT_EQ(checkAnswer[i], sortedarr[i]);
     }
     free(sortedarr);
 }
@@ -30,7 +30,7 @@ TEST(GetSortedTests, SimpleSortReverseSortedArray) {
     for (int i = 0; i < 5; ++i)
     {
         const int checkAnswer[] = {1,2,3,4,5};
-        ASSERT_EQ(checkAnswer[i], sortedarr[i]);
+        EXPECT_EQ(checkAnswer[i], sortedarr[i]);
     }
     free(sortedarr);
 
@@ -46,7 +46,7 @@ TEST(GetSortedTests, SimpleSortAverageArray) {
     for (int i = 0; i < 5; ++i)
     {
         const int checkAnswer[] = {1,2,3,4,5};
-        ASSERT_EQ(checkAnswer[i], sortedarr[i]);
+        EXPECT_EQ(checkAnswer[i], sortedarr[i]);
     }
     free(sortedarr);
 
@@ -62,7 +62,7 @@ TEST(GetSortedTests, SimpleSortArrayWithDuplicates) {
     for (int i = 0; i < 5; ++i)
     {
         const int checkAnswer[] = {1,1,2,2,3};
-        ASSERT_EQ(checkAnswer[i], sortedarr[i]);
+        EXPECT_EQ(checkAnswer[i], sortedarr[i]);
     }
     free(sortedarr);
 
@@ -79,7 +79,7 @@ TEST(GetSortedTests, SimpleOriginalDoesNotChange) {
     for (int i = 0; i < 5; ++i)
     {
         const int checkAnswer[] = {3,1,1,2,2};
-        ASSERT_EQ(checkAnswer[i], arr[i]);
+        EXPECT_EQ(checkAnswer[i], arr[i]);
     }
     free(sortedarr);
 
@@ -109,7 +109,22 @@ RC_GTEST_PROP(GetSortedTests,
     /* Check that after sorting an array, the values are in ascending order
      * Don't forget to free any memory that was dynamically allocated as part of this test
      */
-    (void)values;
+    RC_PRE(!values.empty());
+    int* arr = new int[values.size()];
+    copy_vector_to_array(values,arr);
+    int* copied_arr = get_sorted(arr,values.size());
+    bool sorted = true;
+    for (size_t i = 0; i + 1 < values.size(); ++i)
+    {
+        if(copied_arr[i] > copied_arr[i+1])
+        {
+            sorted = false;
+            break;
+        }
+    }
+    delete[] arr;
+    free(copied_arr);
+    RC_ASSERT(sorted);
 
 }
 
@@ -121,7 +136,15 @@ RC_GTEST_PROP(GetSortedTests,
      * Check that the original array was not modified.
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
-    (void)values;
+    RC_PRE(!values.empty());
+    int* arr = new int[values.size()];
+    copy_vector_to_array(values,arr);
+    int* copied_arr = get_sorted(arr,values.size());
+    bool same = (elements_in_vector_and_array_are_same(values,arr));
+
+    delete[] arr;
+    free(copied_arr);
+    RC_ASSERT(same);
 }
 
 RC_GTEST_PROP(GetSortedTests,
@@ -133,7 +156,26 @@ RC_GTEST_PROP(GetSortedTests,
      * (ar and copy point to different locations in memory and no parts of the two arrays overlap)
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
-    (void)values;
+    RC_PRE(!values.empty());
+    int* arr = new int[values.size()];
+    copy_vector_to_array(values,arr);
+    int* copied_arr = get_sorted(arr,values.size());
+    bool copy_made = (copied_arr != arr);
+    bool sorted = true;
+
+    for (size_t i = 0; i + 1 < values.size(); ++i)
+    {
+        if(copied_arr[i] > copied_arr[i+1])
+        {
+            sorted = false;
+            break;
+        }
+    }
+
+    delete[] arr;
+    free(copied_arr);
+    RC_ASSERT(copy_made);
+    RC_ASSERT(sorted);
 
 }
 
