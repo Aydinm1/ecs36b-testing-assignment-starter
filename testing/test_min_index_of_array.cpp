@@ -4,8 +4,10 @@
 #include "gmock/gmock.h"
 #include "rapidcheck/gtest.h"
 #include "sorting.h"
+#include "test_helpers.h"
 
-TEST(MinIndexOfArrayTests, SimpleMinIndexAtFrontOfArray) {
+TEST(MinIndexOfArrayTests, SimpleMinIndexAtFrontOfArray)
+{
     /*
      * See if we can find the index of the minimum value when it is at the front of the array
      */
@@ -63,6 +65,17 @@ RC_GTEST_PROP(MinIndexOfArrayTests,
     /* Check that the value at the location of the minimum index
      * is not larger than any of the other values in the array
      */
+    auto values = *rc::gen::arbitrary<std::vector<int>>();
+    RC_PRE(!values.empty());
+    int* arr = new int[values.size()];
+    copy_vector_to_array(values,arr);
+    int min_pos = min_index_of_array(arr, values.size());
+    int min_val = arr[min_pos];
+    for (size_t i = 0; i < values.size(); i++)
+    {
+        RC_ASSERT(min_val <= arr[i]);
+    }
+    delete[] arr;
 }
 
 RC_GTEST_PROP(MinIndexOfArrayTests,
@@ -71,4 +84,14 @@ RC_GTEST_PROP(MinIndexOfArrayTests,
     /*
      * Check that finding the minimum of the array did not change the contents of the array.
      */
+    auto values = *rc::gen::arbitrary<std::vector<int>>();
+    RC_PRE(!values.empty());
+    int* arr = new int[values.size()];
+    copy_vector_to_array(values,arr);
+    min_index_of_array(arr, values.size());
+    for (size_t i = 0; i < values.size(); i++)
+    {
+        RC_ASSERT(elements_in_vector_and_array_are_same(values,arr));
+    }
+    delete[] arr;
 }
