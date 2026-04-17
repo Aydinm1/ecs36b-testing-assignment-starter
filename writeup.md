@@ -4,7 +4,9 @@
 1. An array of the same number
 2. An array with elements that are not integers
 3. Test if the inputs are properly read
-...
+4. Swap two values
+5. copying an array and making sure they are two different arrays
+6. Sorting an already sorted array
 
 ## Bugs
 
