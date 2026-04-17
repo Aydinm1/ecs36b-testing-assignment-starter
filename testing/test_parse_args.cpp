@@ -9,11 +9,18 @@ auto word_generator() {
     /* Creates a generator for a string made up of
      * characters from [a - z]
      */
+    return rc::gen::string<std::string>();
 }
 
 auto vector_of_ints_to_vector_of_strings(const std::vector<int>& numbers) {
     /* Create a vector of strings from a vector of ints
      */
+    std::vector<std::string> result;
+    for (int value: numbers)
+    {
+        result.push_back(std::to_string(value));
+    }
+    return result;
 }
 
 

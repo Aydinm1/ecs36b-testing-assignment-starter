@@ -42,6 +42,7 @@ RC_GTEST_PROP(CopyArrayTests,
      * Check that the values in the copy are the same as the values in the original array.
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
+    (void)values;
 
 }
 
@@ -53,6 +54,7 @@ RC_GTEST_PROP(CopyArrayTests,
      * Check that the  values in the original array did not change.
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
+    (void)values;
 
 }
 
@@ -65,6 +67,7 @@ RC_GTEST_PROP(CopyArrayTests,
   * (ar and copy point to different locations in memory and no parts of the two arrays overlap)
   * Don't forget to free any memory that was dynamically allocated as part of your test.
   */
+    (void)values;
 
 }
 

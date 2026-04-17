@@ -66,6 +66,7 @@ RC_GTEST_PROP(GetSortedTests,
     /* Check that after sorting an array, the values are in ascending order
      * Don't forget to free any memory that was dynamically allocated as part of this test
      */
+    (void)values;
 
 }
 
@@ -77,7 +78,7 @@ RC_GTEST_PROP(GetSortedTests,
      * Check that the original array was not modified.
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
-    ;
+    (void)values;
 }
 
 RC_GTEST_PROP(GetSortedTests,
@@ -89,6 +90,7 @@ RC_GTEST_PROP(GetSortedTests,
      * (ar and copy point to different locations in memory and no parts of the two arrays overlap)
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
+    (void)values;
 
 }
 

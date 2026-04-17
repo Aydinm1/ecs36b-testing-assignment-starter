@@ -41,4 +41,5 @@ RC_GTEST_PROP(MakeSortedTests,
     /* Test that after sorting an array, the values are in ascending order
      * Don't forget to free any memory that was dynamically allocated as part of your test.
      */
+    (void)values;
 }
